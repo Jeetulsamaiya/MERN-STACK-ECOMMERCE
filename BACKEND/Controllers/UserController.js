@@ -350,14 +350,30 @@ exports.createProductReview = async (req, res, next) => {
                 error: `Product not found with id ${req.params.id}`,
             });
         }
+        const isReviewed = product.reviews.find(
+            (rev) => rev.user.toString() === req.user.id.toString()
+        );
         if(isReviewed){
-            
+            product.reviews.forEach(review => {
+                if(review.user.toString() === req.user.id.toString()){
+                    review.comment = comment;
+                    review.rating = rating;
+                }
+            }) 
         }else{
-            prod
+            product.reviews.push(review);
+            product.numOfReviews = product.reviews.length;
         }
-
-
-
+        let avg = 0;
+        product.rating = product.reviews.forEach((rev) => {
+            avg += rev.rating;
+        }
+        );
+        product.rating = avg / product.reviews.length;
+        await product.save({ validateBeforeSave: false });
+        res.status(200).json({
+            success: true,
+        });
 }catch (error) {
         res.status(400).json({
             success: false,
