@@ -6,7 +6,8 @@ const {getAllProducts,
      createProduct,
      updateProduct,
      deleteProduct,
-     getProductDetails
+     getProductDetails,
+     createProductReview,
     } = require('../Controllers/ProductController');
 
 //  Middleware imports
@@ -15,6 +16,11 @@ const { isAuthenticatedUser,authorizeRoles } = require('../Middleware/auth');
 // routes
 router.route('/products').get(getAllProducts);
 router.route('/product/:id').get(getProductDetails);
+
+// create product review => /api/v1/review
+router.route('/review').put(isAuthenticatedUser,createProductReview);
+
+
 
 // admin routes
 router.route('/admin/product/new').post(isAuthenticatedUser,authorizeRoles('admin'),createProduct);
