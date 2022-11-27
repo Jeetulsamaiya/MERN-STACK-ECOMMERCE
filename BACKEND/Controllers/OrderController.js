@@ -104,6 +104,12 @@ exports.allOrders = async (req, res, next) => {
 exports.updateOrder = async (req, res, next) => {
     try {
         const order = await Order.findById(req.params.id);
+        if (!order) {
+            return res.status(404).json({
+                success: false,
+                error: `Order not found with id ${req.params.id}`,
+            });
+        }
         if (order.orderStatus === 'Delivered') {
             return res.status(400).json({
                 success: false,
