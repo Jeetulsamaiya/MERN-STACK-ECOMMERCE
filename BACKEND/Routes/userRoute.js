@@ -13,7 +13,7 @@ const {
     getUser,
     updateUser,
     deleteUser
-} = require('../controllers/UserController')
+} = require('../Controllers/UserController')
 const { isAuthenticatedUser ,authorizeRoles} = require('../middleware/auth')
 
 

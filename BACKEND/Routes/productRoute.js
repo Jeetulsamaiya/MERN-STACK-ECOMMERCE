@@ -13,7 +13,7 @@ const {getAllProducts,
     } = require('../Controllers/ProductController');
 
 //  Middleware imports
-const { isAuthenticatedUser,authorizeRoles } = require('../Middleware/auth');   
+const { isAuthenticatedUser,authorizeRoles } = require('../middleware/auth');   
 
 // routes
 
